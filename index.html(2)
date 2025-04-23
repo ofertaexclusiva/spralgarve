@@ -21,7 +21,7 @@
         const resultado = await response.text();
 
         if (resultado === "OK") {
-          window.location.href = "AQUI_O_LINK_DA_LANDING_PAGE_DO_CANVA";
+          window.location.href = "https://www.canva.com/design/DAGi2LJppJI/PS_MXg4cEReaQl2PyXTxWg/edit?utm_content=DAGi2LJppJI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton";
         } else {
           mensagem.textContent = resultado;
         }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verificação de Código</title>
+</head>
+<body>
+  <h1>Insere o teu código</h1>
+  <input type="text" id="codigo" placeholder="Ex: DMSRM009" />
+  <button onclick="verificarCodigo()">Submeter</button>
+  <p id="mensagem"></p>
+
+  <script>
+    async function verificarCodigo() {
+      const codigo = document.getElementById('codigo').value.trim();
+      const mensagem = document.getElementById('mensagem');
+      mensagem.textContent = "A verificar...";
+
+      try {
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbyTQU6y9SAr3WaTu3pPOYZ95B3umWt8o47NoFIRM35kFIyRTUf3KRRNyI5BWrA_IN3s/exec?code=${codigo}`);
+        const resultado = await response.text();
+
+        if (resultado === "OK") {
+          window.location.href = "AQUI_O_LINK_DA_LANDING_PAGE_DO_CANVA";
+        } else {
+          mensagem.textContent = resultado;
+        }
+      } catch (err) {
+        mensagem.textContent = "Erro ao verificar o código.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -12,7 +12,7 @@ function verificarCodigo() {
 
   if (codigosValidos.includes(codigo)) {
     // Redireciona para a landing page do Canva
-    window.location.href = "https://www.canva.com/your-landing-page-url";
+    window.location.href = "https://www.canva.com/design/DAGi2LJppJI/PS_MXg4cEReaQl2PyXTxWg/edit?utm_content=DAGi2LJppJI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton";
   } else {
     erro.textContent = "Código inválido, por favor verifique e tente novamente";
   }

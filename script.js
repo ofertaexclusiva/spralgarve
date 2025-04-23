@@ -1,5 +1,5 @@
 const codigosValidos = [
-  "ARSRM001",
+  "ARPTM000",
   "MGSIL002",
   "JPSPR003",
   "LFMON004",

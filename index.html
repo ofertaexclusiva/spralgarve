@@ -2,21 +2,16 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Boarding Pass | Southport Realty</title>
   <style>
-    /* ======= ESTILOS ======= */
     body {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       font-family: Arial, sans-serif;
       background: url('background.png') no-repeat center center fixed;
       background-size: cover;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: flex; justify-content: center; align-items: center;
     }
     .container {
       background-color: rgba(255, 255, 255, 0.9);
@@ -32,8 +27,7 @@
       margin-bottom: 20px;
       color: #333;
     }
-    .container input[type="email"],
-    .container input[type="text"] {
+    input[type="email"], input[type="text"] {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
@@ -42,7 +36,7 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
-    .container button {
+    button {
       width: 100%;
       padding: 12px;
       background-color: #bb9b43;
@@ -54,7 +48,7 @@
       cursor: pointer;
       margin-top: 12px;
     }
-    .container button:hover {
+    button:hover {
       background-color: #a88b3a;
     }
     .message {
@@ -69,10 +63,11 @@
   <div class="container">
     <h1>Insira o seu email e código de acesso</h1>
     <input type="email" id="emailInput" placeholder="O seu email" />
-    <input type="text" id="codeInput" placeholder="Código (ex: DMSRM009)" />
+    <input type="text" id="codeInput" placeholder="Código (ex: ARPTM001)" />
     <button onclick="validarFormulario()">Validar</button>
     <p id="message" class="message"></p>
   </div>
+
   <script>
     async function validarFormulario() {
       const email = document.getElementById("emailInput").value.trim();
@@ -81,24 +76,27 @@
 
       if (!email || !codigo) {
         messageEl.textContent = "Por favor, preencha email e código.";
+        messageEl.style.color = "red";
         return;
       }
+
       messageEl.textContent = "A validar…";
       messageEl.style.color = "#333";
 
-      // Substitui abaixo pelo link do teu Web App do Google Apps Script
-      const scriptURL = "https://script.google.com/macros/s/AKfycbzMEreSD-js027SIX6xZuRk_s0wxik0cH9LcmqKg8IpaLYBqbwLq5CIs0QLkGJ-qAKSow/exec";
+      // Põe aqui o URL do teu Web App do Apps Script
+      const scriptURL = "https://script.google.com/macros/s/AKfycbw5HXbg7i32Hw0VL2FqstXfTGDDkNwAXijjjtkw0oTBuay_-0OrF3VsQMR916LBy7WX/exec";
 
       try {
         const response = await fetch(`${scriptURL}?codigo=${codigo}&email=${encodeURIComponent(email)}`);
         const result = await response.json();
 
         if (result.status === "valido") {
+          // Redireciona para a landing page oficial
           window.location.href = "https://southportrealty.my.canva.site/landing-page";
         } else {
           messageEl.textContent = result.mensagem;
+          messageEl.style.color = "red";
         }
-        messageEl.style.color = (result.status === "valido" ? "green" : "red");
       } catch (error) {
         messageEl.textContent = "Não foi possível validar agora. Tente mais tarde.";
         messageEl.style.color = "red";

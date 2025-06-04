@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"> <!-- impede indexação no Google -->
+  <title>Boarding Pass | Southport Realty</title>
+
+  <!-- ======== ESTILOS ======== -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      /* Fundo com a tua imagem “background.png” */
+      background: url('background.png') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+    }
+
+    .container h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .container input[type="email"],
+    .container input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #bb9b43; /* tom dourado Southport */
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .container button:hover {
+      background-color: #a88b3a;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Insira o seu email e código de acesso</h1>
+    <input type="email" id="emailInput" placeholder="O seu email" />
+    <input type="text" id="codeInput" placeholder="Código (ex: DMSRM009)" />
+    <button onclick="validarFormulario()">Validar</button>
+    <p id="message" class="message"></p>
+  </div>
+
+  <!-- ======== SCRIPTS ======== -->
+  <script>
+    async function validarFormulario() {
+      const email = document.getElementById("emailInput").value.trim();
+      const codigo = document.getElementById("codeInput").value.trim().toUpperCase();
+      const messageEl = document.getElementById("message");
+
+      if (!email || !codigo) {
+        messageEl.textContent = "Por favor, preencha email e código.";
+        return;
+      }
+
+      messageEl.textContent = "A validar…";
+      messageEl.style.color = "#333";
+
+      // ** Substitui pelo link do teu Google Apps Script Web App **
+      const scriptURL = "https://script.google.com/macros/s/AKfycby9JrsBcROFuc91cs9VtiGIimrLap56BTm1toNytsyHsxl4aY7IWkYqyurdHki9OFroqA/exec";
+
+      try {
+        const response = await fetch(`${scriptURL}?codigo=${codigo}&email=${encodeURIComponent(email)}`);
+        const result = await response.json();
+
+        if (result.status === "valido") {
+          // Redireciona imediatamente para a LP
+          window.location.href = "https://southportrealty.my.canva.site/landing-page";
+        } 
+        else if (result.status === "expirado") {
+          messageEl.textContent = result.mensagem;
+        } 
+        else if (result.status === "invalido") {
+          messageEl.textContent = result.mensagem;
+        } 
+        else {
+          messageEl.textContent = "Erro inesperado. Tente novamente.";
+        }
+        messageEl.style.color = (result.status === "valido" ? "green" : "red");
+      } 
+      catch (error) {
+        messageEl.textContent = "Não foi possível validar agora. Tente mais tarde.";
+        messageEl.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>

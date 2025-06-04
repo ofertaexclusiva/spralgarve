@@ -75,7 +75,7 @@
       messageEl.textContent = "A validar…";
       messageEl.style.color = "#333";
 
-      const scriptURL = "https://script.google.com/macros/s/AKfycbxGjXqTuo92Ol0DPT0h6SeYspWNp8oQvAI1oy7D44t3De62qa3RBYUdHcP80wBiqlKFCg/exec";
+      const scriptURL = "https://script.google.com/macros/s/AKfycbyVrJnQCpGseOKfhQJCuE3Ld9NQgI58XRtpCPev4gfsmnO38KGEzZgSKoE0DNwuMlBjpw/exec";
 
       try {
         const response = await fetch(`${scriptURL}?codigo=${codigo}&email=${encodeURIComponent(email)}`);
